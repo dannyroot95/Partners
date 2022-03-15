@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Table V04</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDh7U0aNiNGd0oLz7CLzdluscfw2ojSnsc&callback=sensor">
+    </script>
+	<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'> 
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+	<script src="js/alertify.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="css/alertify.css" />
+
+
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	
+<!--===============================================================================================-->
+
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+ <link href='css/style-profile.css' rel='stylesheet'> 
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+</head>
+<body>
+	
+	<div id="myNav" class="overlay">
+		
+		<div id="loader"></div>
+		<div class="overlay-content" style="margin-top: 1%;margin-left: -0.5%;">
+			<a id="textupdate" style="color: #FFF;">Cargando pedidos...</a></div>
+	</div>
+
+	<script>
+           
+		const mq = window.matchMedia( "(max-width: 600px)");
+		  if(mq.matches){
+			document.getElementById("myNav").style.width = "100%";
+			document.getElementById("textupdate").style = "font-size:22px;color:#FFF;margin-top:-10px;";
+		  }else{
+			document.getElementById("myNav").style.width = "100%";
+		  }
+		
+	</script>
+
+    <div class="body-title"  id="title">
+        Mis pedidos
+		<button class="btn btn-primary profile-button" id="btnShowDelivery" onclick="showModalAddProduct()" style="margin-left:2%;" type="button"><i class="bx bx-cycling"></i>Ver repartidor</button>
+		</div>
+
+		<div style="display: flex;padding: 15px;
+	  justify-content: center;" id="mySettings">
+	
+		<input type="text" id="searchBar" style="border: 1px solid #E0E0E0;" class="form-control" placeholder="Buscar pedido...">
+			<select class="custom-select" id="typeSelected">
+				<option selected value="1"># de pedido</option>
+				<option value="2">Cliente</option>
+			</select>
+
+		  <button class="btn btn-outline-primary ml-1" id="btnSearch" type="button">Buscar</button>
+
+	  </div>
+      
+	  <table class="table table-white" id="myTable">
+		<thead>
+			<th><font color="#FF3687" style="font-weight:900;">#</font></th>
+			<th><font color="#FF3687" style="font-weight:900;">ID de pedido</font></th>
+			<th><font color="#FF3687" style="font-weight:900;">Nombre de cliente</font></th>
+			<th><font color="#FF3687" style="font-weight:900;">Estado</font></th>
+			<th><font color="#FF3687" style="font-weight:900;">Tipo de pago</font></th>
+			<th ></th>
+		</thead>
+		<tbody id="tbody1">
+		</tbody>
+	</table>
+
+	<script>
+			const mx = window.matchMedia( "(max-width: 600px)");
+		  if(mx.matches){
+		         var mysize = screen.width+200
+                 var mytable = document.getElementById("myTable")
+				 var mytitle = document.getElementById("title")
+				 var myButton = document.getElementById("btnShowDelivery")
+				 var myButtonSearch = document.getElementById("btnSearch")
+				 var typeSelect = document.getElementById("typeSelected")
+				 var mySearchBar = document.getElementById("searchBar")
+				 var mySettings = document.getElementById("mySettings")
+				 mytable.style = "font-size: 0.9rem;"
+				 mytitle.style = "font-size: 0.9rem;padding-left: 10px;"+"width:"+mysize+"px;"
+				 myButton.style = "font-size: 0.9rem;"
+				 myButtonSearch.style = "font-size: 0.9rem;"
+				 typeSelect.style = "font-size: 0.9rem;"
+				 mySearchBar.style = "font-size: 0.9rem;"
+				 mySettings.style = "flex-direction: column; justify-content: center;align-items: center;padding:20px"
+				
+		  }
+	</script>
+
+	<div style="display:none;" id="noOrdersDiv">
+		<img src="img/not_orders.png" width="220px" height="250px">
+	</div>
+
+	<script src="js/getOrders.js" defer></script>
+
+	<style>
+		#map {
+  height: 400px;
+  /* The height is 400 pixels */
+  width: 100%;
+  /* The width is the width of the web page */
+}
+	</style>
+
+	<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
+		
+		<div id="myNavUpdate" class="overlay">
+		
+			<div id="loader"></div>
+			<div class="overlay-content" style="margin-top: 1%;margin-left: -0.5%;">
+				<a id="textupdate" style="color: #FFF;">Actualizando pedido...</a></div>
+		</div>
+		
+		<div class="modal-dialog modal-lg" role="document">
+		  <div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="titleProduct"></h5>
+			<label id="id" style="display: none;"></label>
+			<label id="clientId" style="display: none;"></label>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+
+			<img id="imgStatus" width="25px" height="25px">&nbsp;&nbsp;<label style="font-weight: bold; color: #000;">Estado :&nbsp;&nbsp;</label><label id="statusOrder"></label>
+		<center>
+			<label style="font-weight: bold; color: #FF3687;">Nombre de cliente :&nbsp;&nbsp;</label><label id="client" style="font-size:20px;"></label><br>
+			<label style="font-weight: bold; color: #FF3687;">Direccion :&nbsp;&nbsp;</label><label id="address" style="font-size:20px;"></label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<label style="font-weight: bold; color: #FF3687;">Nota :&nbsp;&nbsp;</label><label id="reference" style="font-size:20px;"></label><br>
+			<label style="font-weight: bold; color: #FF3687;font-size: 18px;"><u>Producto(s)</u></label><br>
+		    <div id="divProducts"></div>
+		</center>
+
+		    <label style="font-weight: bold; color: #FF3687;font-size: 18px;">Mapa de referencia</label>
+			<div id="map"></div>
+			<center>
+				<label style="font-weight: bold; color: #FF3687;">Teléfono :&nbsp;&nbsp;</label><label style="font-size:20px;" id="phone"></label><br>
+				<label style="font-weight: bold; color: #FF3687;">Tipo de pago :&nbsp;&nbsp;</label><label style="font-size:20px;" id="typePay"></label>&nbsp;&nbsp;&nbsp;
+				<label id="labelPayWithMoney">Pagará con :&nbsp;&nbsp;</label><label style="font-size:20px;" id="payWithMoney"></label>&nbsp;&nbsp;&nbsp;
+				<label style="font-weight: bold; color: #FF3687;">Monto a pagar :&nbsp;&nbsp;</label><label style="font-size:20px;" id="amountToPay"></label>
+			</center>
+			
+			
+				
+			</div>
+			<div class="modal-footer" >
+		
+				<button type="button" class="btn btn-warning" onclick="procesingOrder()" style="color: #FFF;" id="processOrder">Procesar pedido</button>
+				<button type="button" class="btn btn-light" style="background-color: #154360;color: #FFF;" onclick="sendingOrder()" id="sendOrder">Enviar pedido</button>
+				<button type="button" class="btn btn-success" onclick="completeOrder()" id="successOrder">Completar pedido</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			
+			  </div>
+		  </div>
+		
+		  </div>
+		</div>
+		</div>
+
+<!--===============================================================================================-->	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			var ps = new PerfectScrollbar(this);
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+			
+		
+	</script>
+
+
+</body>
+
+</html>

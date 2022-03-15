@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+  <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+  <link rel="stylesheet" type="text/css" href="css/style-panel-control.css">
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+
+	<title></title>
+</head>
+<body>
+
+	<div class="body-title">
+          Panel de Control
+        </div>
+
+        <div class="body-modulo">
+            <div class="conten-item">
+              <div class="conten-item-principal">
+                <div class="contem-item-icon">
+                  <span class='bx bx-money'></span>
+                </div>
+                <div class="contem-item-text">
+                  <div class="conten-item-text-num" id="totalSales">
+                  </div>
+                  <div class="conten-item-text-titulo">
+                    Ventas
+                  </div>
+                </div>
+              </div>
+
+              <div class="conten-item-principal">
+                <div class="contem-item-icon">
+                  <span class='bx bxs-cart-alt'></span>
+                </div>
+                <div class="contem-item-text">
+                  <div class="conten-item-text-num" id="totalProducts">
+                  </div>
+                  <div class="conten-item-text-titulo">
+                    Productos
+                  </div>
+                </div>
+              </div>
+
+              <div class="conten-item-principal">
+                <div class="contem-item-icon">
+                  <span class='bx bxs-edit'></span>
+                </div>
+                <div class="contem-item-text">
+                  <div class="conten-item-text-num" id="totalOrders">
+                  </div>
+                  <div class="conten-item-text-titulo">
+                    Pedidos
+                  </div>
+                </div>                
+              </div>
+
+              <script>
+                var totalProducts = localStorage.getItem('totalProducts');
+                var totalOrders =  localStorage.getItem('myOrders');
+                var totalSales =  localStorage.getItem('mySales');
+                document.getElementById("totalProducts").innerHTML = totalProducts
+                document.getElementById("totalOrders").innerHTML = totalOrders
+                document.getElementById("totalSales").innerHTML = "S/"+totalSales
+              </script>
+
+            </div>
+
+            <div id="noGraphDiv" style="display: none;">
+              <img src="img/graph.png" width="300px" height="300px">
+            </div>
+            <center><canvas id="myChart" style="width:100%;max-width:100%;margin-top: 20px;"></canvas></center>
+
+            <script>
+               var imgGraph = document.getElementById("noGraphDiv")
+               var retrievedObject = localStorage.getItem('mySalesArray');
+               var js = JSON.parse(retrievedObject)
+               var xValues = []
+
+               if(js == null){
+                  imgGraph.style = "justify-content: center;align-items: center;display: flex;padding:30px;"
+                  document.getElementById("myChart").delete()
+                if(js.length <= 0){
+                  document.getElementById("myChart").delete()
+                  imgGraph.style = "justify-content: center;align-items: center;display: flex;padding:30px;"
+                  }
+               }
+               
+               for(var i = 1 ;i<js.length;i++){
+                 xValues.push(i)
+               }
+
+                      
+
+                 new Chart("myChart", {
+                 type: "line",
+                 data: {
+                 labels: xValues,
+                 datasets: [{
+                 backgroundColor: "#FF3687",
+                 borderColor: "rgba(0,0,0,0.1)",
+                 data: js,
+                 label : "Datos"
+               }]
+            },
+         });
+            </script>
+
+        </div>
+        <style type="text/css" class="estilo"></style>
+
+       
+        
+</body>
+</html>

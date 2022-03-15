@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <script src="https://www.gstatic.com/firebasejs/4.8.1/firebase.js"></script>
+  <script src="js/register.js"></script>
+  <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="../assets/img/favicon.png">
+  <script src="js/alertify.min.js"></script>
+  <link rel="stylesheet" href="css/css/alertify.min.css" />
+  <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase.js"></script>
+  <script src="js/alertify.min.js"></script>
+  <link rel="stylesheet" href="css/css/alertify.min.css" />
+
+  <title>
+    Sistema control de usuarios - Registro
+  </title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto|Varela+Round">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="css/style-signup.css">
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900|Roboto+Slab:400,700" />
+  <!-- Nucleo Icons -->
+  <link href="../assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="../assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet">
+  <!-- CSS Files -->
+  
+  <link id="pagestyle" href="../assets/css/material-dashboard.css?v=3.0.0" rel="stylesheet" />
+  <link rel="stylesheet" type="text/css" href="css/stylemap.css" media="screen" >
+  <link rel="stylesheet" type="text/css" href="css/style-signup.css" media="screen" >
+
+
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDh7U0aNiNGd0oLz7CLzdluscfw2ojSnsc&callback=initMap"></script>
+  <script type="text/javascript" src="js/dragmap.js"></script>
+</head>
+
+<body class="">
+ 
+
+  <div class="container position-sticky z-index-sticky top-0">
+    <div class="row">
+      <div class="col-12">
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg blur border-radius-lg top-0 z-index-3 shadow position-absolute mt-4 py-2 start-0 end-0 mx-4" style="display: none;">
+          <div class="container-fluid ps-2 pe-0">
+            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 " href="../pages/dashboard.html">
+              Afiliate a Aukde partners
+            </a>
+            <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon mt-2">
+                <span class="navbar-toggler-bar bar1"></span>
+                <span class="navbar-toggler-bar bar2"></span>
+                <span class="navbar-toggler-bar bar3"></span>
+              </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navigation">
+              <ul class="navbar-nav mx-auto">   
+                <li class="nav-item">
+                  <a class="nav-link me-2" href="../pages/sign-up.html">
+                    <i class="fas fa-user-circle opacity-6 text-dark me-1"></i>
+                    Registrarse
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link me-2" href="../pages/sign-in.html">
+                    <i class="fas fa-key opacity-6 text-dark me-1"></i>
+                    Iniciar Sesión
+                  </a>
+                </li>
+              </ul>
+              <ul class="navbar-nav d-lg-block d-none">
+                <li class="nav-item">
+                  <a href="#" class="btn btn-sm mb-0 me-1 bg-gradient-dark"></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </nav>
+        <!-- End Navbar -->
+      </div>
+    </div>
+  </div>
+  <main class="main-content  mt-0">
+    <section>
+      <div class="page-header min-vh-100">
+        <div class="container">
+          <div class="row">
+            <div class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 start-0 text-center justify-content-center flex-column">
+              <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center" style="background-image: url('../assets/img/illustrations/illustration-signup.jpg'); background-size:cover;">
+              </div>
+            </div>
+            <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column ms-auto me-auto ms-lg-auto me-lg-5">
+              <div class="card card-plain">
+                <div class="card-header">
+                  <h4 class="font-weight-bolder" style="font-size: 40px;">Aukde Partners</h4>
+                  <p class="mb-0" style="margin-top: -15px;">Vende y compra fácil</p>
+                </div>
+                <div class="card-body" style="margin-top: -20px;">
+                  <form role="form" id="form">
+
+
+                    <div class="wrapper">
+                      <h5>¿Soy?</h2>
+                      <input type="radio" name="select" id="option-1">
+                      <input type="radio" name="select" id="option-2">
+                        <label for="option-1" class="option option-1">
+                          <div class="dot"></div>
+                           <span>Hombre</span>
+                           </label>
+                        <label for="option-2" class="option option-2">
+                          <div class="dot"></div>
+                           <span>Mujer</span>
+                        </label>
+                     </div>
+
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">Nombres</label>
+                      <input type="text" class="form-control" id="name">
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">Apellidos</label>
+                      <input type="text" class="form-control" id="lastname">
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">DNI</label>
+                      <input type="number" class="form-control" id="dni">
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">Celular ó Teléfono</label>
+                      <input type="number" class="form-control" id="phone">
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">Nombre del negocio ó empresa</label>
+                      <input type="text" class="form-control" id="namestore">
+                    </div>
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">Dirección</label>
+                      <input type="text" class="form-control" id="address">
+                    </div>
+
+                    <div class="input-group input-group-outline mb-3">
+                    <label><b>Agrege la ubicación de su negocio</b></label>
+                    <div id="googleMap"  style="margin-bottom: 15px;"></div>
+                    </div>
+       
+                    <div style="display: none;">
+                      <label id="latitude"></label>
+                      <label id="longitude"></label>
+                    </div>
+
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">RUC</label>
+                      <input type="number" class="form-control" id="ruc">
+                    </div>
+
+                    <div class="form-check form-check-info text-start ps-0" style="margin-bottom: 15px;">
+                      <label>¿Cuenta con servicio de delivery?</label>
+                      <br>
+                      <input class="form-check-input" type="checkbox" value="" id="checkyes">
+                      <label class="form-check-label" style="font-weight: bold;">Si
+                      </label>
+                      &nbsp;&nbsp;&nbsp;
+                      <input class="form-check-input" type="checkbox" value="" id="checknot">
+                      <label class="form-check-label" style="font-weight: bold;">No
+                      </label>
+                    </div>
+
+                    <div class="input-group input-group-outline mb-3" style="display: none;" id="inputDelivery">
+                      <label class="form-label">Precio de su delivery</label>
+                      <input type="number" class="form-control" id="priceDelivery">
+                    </div>
+
+
+                    <label style="margin-top: 15px;">¿Que vendes?</label>&nbsp;
+                    <select Name="options" Size="options" id="listOptions" style="margin-bottom: 20px;">  
+                      <option hidden>-Seleccione una opción...</option>
+                    </select> 
+
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">Correo electrónico</label>
+                      <input type="email" class="form-control" id="mail">
+                    </div>
+    
+                    <div class="input-group input-group-outline mb-3">
+                      <label class="form-label">Contraseña</label>
+                      <input type="password" class="form-control" id="password">
+                    </div>
+                
+                    <div class="form-check form-check-info text-start ps-0">
+                      <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
+                      <label class="form-check-label" for="flexCheckDefault">
+                        Aceptar las <a href="https://aukde.com/politicas-de-privacidad/" target="_blank" class="text-dark font-weight-bolder">Politicas de privacidad</a>
+                      </label>
+                    </div>
+                    <div class="text-center">
+                      <button type="button" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-4 mb-0" id="btn-afi" onclick="sendSolicitude()">Afiliarse<a style="position: absolute;margin-left: 8px; display: none;" id="div-loader"><div class="loader"></div></a></button> 
+                      </div>
+                  </form>
+                </div>
+            
+               <div class="card-footer text-center pt-0 px-lg-2 px-1">
+                <p class="mb-2 text-sm mx-auto"><br>
+                    Tienes una cuenta?
+                    <a href="../pages/sign-in.html" class="text-primary text-gradient font-weight-bold">Iniciar Sesión</a>
+                  </p>
+                </div>
+                
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <!--   Core JS Files   -->
+  <script type="text/javascript" src="js/dragmap.js"></script>
+  <script type="text/javascript" src="js/registerPartner.js"></script>
+  <script src="../assets/js/core/popper.min.js"></script>
+  <script src="../assets/js/core/bootstrap.min.js"></script>
+  <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+  <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
+  <script>
+    var win = navigator.platform.indexOf('Win') > -1;
+    if (win && document.querySelector('#sidenav-scrollbar')) {
+      var options = {
+        damping: '0.5'
+      }
+      Scrollbar.init(document.querySelector('#sidenav-scrollbar'), options);
+    }
+  </script>
+  <!-- Github buttons -->
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+  <!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
+  <script src="../assets/js/material-dashboard.min.js?v=3.0.0"></script>
+  <style>
+    .m-3 {
+      margin: -1rem!important;
+}
+  </style>
+  <style>
+    .alertify-notifier .ajs-message.ajs-success{
+    color: #fff;
+    background: rgba(217, 92, 92, 0,95);
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0,5);
+}
+.alertify-notifier .ajs-message.ajs-error{
+    color: #fff;
+    background: #FC0000;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0,5);
+}
+button.ajs-button.ajs-cancel{
+display: none;
+}
+  </style>
+</body>
+
+</html>

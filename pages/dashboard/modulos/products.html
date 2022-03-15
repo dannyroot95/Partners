@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Table V04</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'> 
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+	<script src="js/alertify.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="css/alertify.css" />
+	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase.js"></script>
+	
+
+<!--===============================================================================================-->
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+
+	<link rel="stylesheet" type="text/css" href="css/util.css">
+	<link rel="stylesheet" type="text/css" href="css/main.css">
+	
+<!--===============================================================================================-->
+
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+ <link href='css/style-profile.css' rel='stylesheet'> 
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+</head>
+
+<body>
+
+	<div id="myNavNoHours" class="overlay" style="background: #E0E0E0;">
+
+		<div class="overlay-content" style="margin-top: 1%;margin-left: -0.5%;">
+			<a style="color: #000;">Configure su horario!<p></p>para agregar un producto.</a></div>
+	</div>
+	<script>
+
+		   var retrievedObject = localStorage.getItem('myData');
+           var js = JSON.parse(retrievedObject)
+		   console.log(js["opening_hours"])
+		   if(js["opening_hours"] != null){
+			//document.getElementById("myNavNoHours").style = "display:none;"
+		   }else{
+			document.getElementById("myNavNoHours").style.width = "100%";
+		   }
+		   
+	</script>
+	
+    <div class="body-title" id="title">
+        Mis productos
+		<button class="btn btn-primary profile-button" id="btnAddProduct" onclick="showModalAddProduct()" style="margin-left:2%;" type="button"><i class="fa fa-plus"></i>Agregar producto</button>
+      </div>
+	  
+	  <div style="display: flex;padding: 15px;
+	  justify-content: center;" id="mySettings">
+	
+		<input type="text" id="searchBar" style="border: 1px solid #E0E0E0;" class="form-control" placeholder="Buscar producto...">
+			<select class="custom-select" id="typeSelected">
+				<option selected value="1">Nombre</option>
+				<option value="2">Sku</option>
+			</select>
+
+		  <button class="btn btn-outline-primary ml-1" id="btnSearch" type="button">Buscar</button>&nbsp;<img src="img/reset.png" id="btnReset" width="40px" height="40px">
+
+	  </div>
+	 
+
+
+	  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-hidden="true">
+
+		<div id="myNav" class="overlay">
+		
+			<div id="loader"></div>
+			<div class="overlay-content" style="margin-top: 1%;margin-left: -0.5%;">
+				<a id="textupdate" style="color: #FFF;">Actualizando...</a></div>
+		</div>
+		
+		<div class="modal-dialog modal-lg" role="document">
+		  <div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="titleProduct">Modal title</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+
+			<center>
+			<div class="card" style="width: 220pz;height: 220px;margin-bottom: -40px;">
+		    <center><img id="myImgProduct" style="margin-top: 5px;margin-bottom: 5px;" loading= "lazy" width="200px" height="200px"></center>
+			</div></center>
+		
+
+			<div class="container rounded mt-5 mb-5">
+				<div class="row" style="margin-top: -20px;margin-bottom: -20px;">
+				
+					<div class="col-md-5 border-right">
+						<div class="p-3 py-4">
+							<div class="row mt-2">
+								<label id="id" style="display: none;"></label>
+								<div class="col-md-12"><label class="labels">Nombre de producto</label><input type="text" style="font-weight:bold;background-color: #FF3687;color: #FFF;" class="form-control" value=""  id="name"></div>
+								<div class="col-md-6" style="width: 100%;"><label class="labels">Sku</label><div class="input-group">
+									<span class="input-group-addon" id="spanSkuAdd"></span>
+									  <input type="text" class="form-control" id="sku" style="font-size: 14px;font-weight:bold;background-color: #FF3687;color: #FFF;"/>
+								  </div></div>
+								<div class="col-md-6" style="width: 100%;"><label class="labels">Precio de producto</label><input type="number" style="font-weight:bold;background-color: #FF3687;color: #FFF;" class="form-control" value=""  id="price"></div></center>
+								<div class="col-md-12" style="width: 100%;"><label class="labels">Precio de delivery</label><input type="number" style="font-weight:bold;background-color: #FF3687;color: #FFF;" class="form-control" value=""  id="delivery"></div></center>
+															
+							</div>
+					   
+						</div>
+					 </div>
+					 <div class="col-md-5">
+					
+						<div class="p-3 py-4">
+						
+							<div class="row mt-2">
+								<div class="col-md-12"><label class="labels">Descripción</label><textarea style=" height: 100px;font-weight:bold;background-color: #FF3687;color: #FFF;" class="form-control" value=""  id="description"></textarea></div></center>             
+								<div class="col-md-12" style="width: 100%;"><label class="labels">Stock</label><input type="number" style="font-weight:bold;background-color: #FF3687;color: #FFF;" class="form-control" value=""  id="stock"></div></center>
+					        
+							
+							</div>
+					   
+						</div>
+					</div>
+				</div>
+			
+				
+			</div>
+			<div class="modal-footer" >
+		
+				<button type="button" class="btn btn-dark" onclick="updateData()">Guardar cambios</button>
+				<button type="button" class="btn btn-danger" onclick="deleteProduct()">Eliminar producto</button>
+				<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+			
+			  </div>
+		  </div>
+		
+		  </div>
+		</div>
+		</div>
+
+		<!-- ----------------------------------------------------ADD PRODUCT---------------------------------------------------------------------------->
+
+		<div class="modal fade" id="modalAddProduct" tabindex="-1" role="dialog" aria-hidden="true">
+
+			<div id="myNavCreate" class="overlay">
+			
+				<div id="loader"></div>
+				<div class="overlay-content" style="margin-top: 1%;margin-left: -0.5%;">
+					<a id="textcreate" style="color: #FFF;">Subiendo producto...</a></div>
+			</div>
+
+			<div class="modal-dialog modal-lg" role="document">
+			  <div class="modal-content">
+			  <div class="modal-header">
+				<h5 class="modal-title">Agregar nuevo producto</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			  </div>
+			  <div class="modal-body">
+	
+				<center>
+				<div class="card" style="width: 220pz;height: 220px;margin-bottom: -40px;">
+				<center><img id="myImgAddProduct" style="margin-top: 5px;margin-bottom: 5px;" width="200px" height="200px"></center>
+				<center><input type="file" name="files[]" id="files" style="margin-top: -40px;"></center>
+				<input type="hidden "name="url" id="url" style="display: none;">
+				</div></center>
+		
+				<div class="container rounded mt-5 mb-5">
+					<div class="row" style="margin-top: -20px;margin-bottom: -20px;">
+					
+						<div class="col-md-5 border-right">
+							<div class="p-3 py-4">
+								<div class="row mt-2">
+												
+									<label id="id" style="display: none;"></label>
+									<div class="col-md-12"><label class="labels">Nombre de producto</label><input type="text" style="font-weight:bold;background-color: #FF3687;color: #FFF;" class="form-control" value=""  id="nameUp"></div>
+									<div class="col-md-6" style="width: 100%;"><label class="labels">Sku</label><div class="input-group">
+										<span class="input-group-addon" id="spanSku"></span>
+										  <input type="text" class="form-control" id="skuUp" style="font-weight:bold;background-color: #FF3687;color: #FFF;"/>
+									  </div></div>
+									<div class="col-md-6" style="width: 100%;"><label class="labels">Precio de producto</label><input type="number" style="font-weight:bold;background-color: #FF3687;color: #FFF;" class="form-control" value=""  id="priceUp"></div>
+									<div class="col-md-12" style="width: 100%;"><label class="labels">Precio de delivery</label><input type="number" style="font-weight:bold;background-color: #FF3687;color: #FFF;" class="form-control" value=""  id="deliveryUp"></div>
+																
+								</div>
+						   
+							</div>
+						 </div>
+						 <div class="col-md-5">
+						
+							<div class="p-3 py-4">
+							
+								<div class="row mt-2">
+									<div class="col-md-12"><label class="labels">Descripción</label><textarea style=" height: 100px;font-weight:bold;background-color: #FF3687;color: #FFF;" class="form-control" id="descriptionUp"> </textarea></div>           
+									<div class="col-md-12" style="width: 100%;"><label class="labels">Stock</label><input type="number" style="font-weight:bold;background-color: #FF3687;color: #FFF;" class="form-control" value=""  id="stockUp"></div>
+
+
+								</div>
+						   
+							</div>
+						</div>
+					</div>
+				
+					
+				</div>
+				<div class="modal-footer" >
+				
+					<button type="button" class="btn btn-dark" onclick="uploadImage()">Agregar</button>
+					<button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+				
+				  </div>
+			  </div>
+			
+			  </div>
+			</div>
+	     	</div>
+
+			 
+	  
+      
+	  <table class="table table-white" id="myTable">
+		<thead>
+			<th class="cell100 column1"><font color="#FF3687" style="font-weight:900;">#</font></th>
+			<th><font color="#FF3687" style="font-weight:900;">Imagen</font></th>
+			<th class="cell100 column2"><font color="#FF3687" style="font-weight:900;">Producto</font></th>
+			<th ><font color="#FF3687" style="font-weight:900;">SKU</font></th>
+			<th class="cell100 columnEdit" ><font color="#FF3687" style="font-weight:900;">Stock</font></th>
+			<th ></th>
+		</thead>
+		<tbody id="tbody1">
+		</tbody>
+	</table>
+
+	<script>
+     
+		const mq = window.matchMedia( "(max-width: 600px)");
+		  
+		  if (mq.matches) {
+			     var mysize = screen.width+100
+                 var mytable = document.getElementById("myTable")
+				 var mytitle = document.getElementById("title")
+				 var myButton = document.getElementById("btnAddProduct")
+				 var myButtonSearch = document.getElementById("btnSearch")
+				 var typeSelect = document.getElementById("typeSelected")
+				 var mySearchBar = document.getElementById("searchBar")
+				 var mySettings = document.getElementById("mySettings")
+				 var myBtnReset = document.getElementById("btnReset")
+				 mytable.style = "font-size: 0.9rem;"
+				 mytitle.style = "font-size: 0.9rem;padding-left: 10px;"+"width:"+mysize+"px;"
+				 myButton.style = "font-size: 0.9rem;"
+				 myButtonSearch.style = "font-size: 0.9rem;"
+				 typeSelect.style = "font-size: 0.9rem;"
+				 mySearchBar.style = "font-size: 0.9rem;"
+				 mySettings.style = "flex-direction: column; justify-content: center;align-items: center;padding:20px"
+				 myBtnReset.style = "width:35px;height:35px;"
+
+			 }
+	  </script>
+	
+	<div style="display:none;" id="noProductDiv">
+		
+		<img src="img/noproduct.png" width="330px" height="250px">
+	</div>
+
+	<script src="js/getProducts.js" defer></script>
+
+
+<!--===============================================================================================-->	
+	<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/bootstrap/js/popper.js"></script>
+	<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/select2/select2.min.js"></script>
+<!--===============================================================================================-->
+	<script src="vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script>
+		$('.js-pscroll').each(function(){
+			var ps = new PerfectScrollbar(this);
+
+			$(window).on('resize', function(){
+				ps.update();
+			})
+		});
+			
+		
+	</script>
+<!--===============================================================================================-->
+	<script src="js/main.js"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="js/alertify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/alertify.css" />
+
+     <link rel="stylesheet" type="text/css" href="css/hours.css">
+     <link rel="stylesheet" type="text/css" href="css/loader.css">
+     <link href='css/style-profile.css' rel='stylesheet'> 
+  
+  </head>
+
+     <body>
+        
+         <div id="myNav" class="overlay">
+		
+			<div id="loader"></div>
+			<div class="overlay-content" style="margin-top: 1%;margin-left: -0.5%;">
+				<a id="textupdate" style="color: #FFF;">Estableciendo horario...</a></div>
+		</div>
+
+        <div class="courses-container">
+            <div class="course">
+                <div class="course-preview">
+                    <h6>Aukde</h6>
+                    <h2>Configuración de Horario</h2>
+                    <a href="#">Y días de la semana.<i class="fas fa-chevron-right"></i></a>
+                </div>
+                <div class="course-info">
+                    <div class="progress-container">
+                        <div class="progress" id="progress"></div>
+                        <span class="progress-text" id="progresstxt">
+                            50% Completado
+                        </span>
+                    </div>
+                    <h6>Mi horario</h6>
+                    <h2>Cierre & Apertura</h2>
+
+                    <div >
+                       <h6>Hora de apertura</h6><input type="time" style="font-weight:bold;width: 30%;" class="form-control" placeholder="Apertura" value=""  id="opening"></div>
+                       <br>
+                       <h6>Hora de cierre</h6><input type="time" style="font-weight:bold;width: 30%;" class="form-control" value="" placeholder="Cierre"  id="closing">
+                  <p></p>
+                    
+                       <table style="display: none;" id="myTable">
+                        <thead>
+                          <tr>
+                            <th>Día</th>
+                            <th>Apertura</th>
+                            <th>Cierre</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td><label><input type="checkbox" id="chkMonday">Lunes</label></td>
+                            <td><input type="time" id="timeOpenMonday" ></td>
+                            <td><input type="time" id="timeCloseMonday"></td>
+                          </tr>
+                          <tr>
+                            <td><label><input type="checkbox" id="chkThursday">Martes</label></td>
+                            <td><input type="time" id="timeOpenThursday"></td>
+                            <td><input type="time" id="timeCloseThursday"></td>
+                          </tr>
+                          <tr>
+                            <td><label><input type="checkbox" id="chkWednesday">Miercoles</label></td>
+                            <td><input type="time" id="timeOpenWednesday"></td>
+                            <td><input type="time" id="timeCloseWednesday"></td>
+                          </tr>
+                          <tr>
+                            <td><label><input type="checkbox" id="chkTuesday">Jueves</label></td>
+                            <td><input type="time" id="timeOpenTuesday"></td>
+                            <td><input type="time" id="timeCloseTuesday"></td>
+                          </tr>
+                          <tr>
+                            <td><label><input type="checkbox" id="chkFriday">Viernes</label></td>
+                            <td><input type="time" id="timeOpenFriday"></td>
+                            <td><input type="time" id="timeCloseFriday"></td>
+                          </tr>
+                              <tr>
+                            <td><label><input type="checkbox" id="chkSaturday">Sábado</label></td>
+                            <td><input type="time" id="timeOpenSaturday"></td>
+                            <td><input type="time" id="timeCloseSaturday"></td>
+                          </tr>
+                          <tr>
+                            <td><label><input type="checkbox" id="chkSunday">Domingo</label></td>
+                            <td><input type="time" id="timeOpenSunday"></td>
+                            <td><input type="time" id="timeCloseSunday"></td>
+                          </tr>
+                        </tbody>
+                        </table>
+                    
+                       <button class="btn" onclick="validateHours()" id="btnValidateHours">Continuar</button></div>
+                  
+                    </div>
+
+               
+                </div>
+            </div>
+        </div>
+     
+        
+        <button class="floating-btn parpadea" style="display: none;" id="btnFloat" onclick="updateHoursAndDays()">
+            Guardar Horario
+        </button>
+        
+        <div class="floating-text" id="configHour" style="font-weight: bold;">
+            Sin Horario configurado!
+        </div>
+        <script src="js/hours.js"></script>
+
+      </body>
+</html>

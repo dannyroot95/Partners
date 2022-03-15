@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="css/style.css">
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'> 
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script type="text/javascript" src='modulos/js/modulos.js'></script> 
+    <link rel="stylesheet" href="modulos/css/slick-loader.min.css" />
+    <script src="modulos/js/slick-loader.min.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/logout.js"></script>
+  
+    <script src="modulos/js/alertify.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="modulos/css/alertify.css" />
+
+    
+
+
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   </head>
+<body>
+
+  <div class="sidebar open" id="mySidebar">
+
+  
+    <div class="logo-details" id="logoDetails">
+        <div class="logo_name"><img src="modulos/img/partners.png" width="100%" height="50px" style="margin-top: 20px;"></div>
+        <i class='bx bx-menu' id="btn"></i>
+    </div>
+
+    <script>
+     
+      const mq = window.matchMedia( "(max-width: 900px)");
+        
+        if (mq.matches) {
+            var element = document.getElementById("mySidebar")
+            element.classList.remove('open');
+            document.getElementById("logoDetails").remove()
+           }
+
+       const mx = window.matchMedia( "(min-width: 900px)");
+           if(mx.matches){
+            var element = document.getElementById("mySidebar")
+            element.classList.add(' open');
+           }
+
+    </script>
+
+
+    <ul class="nav-list">
+      <li>
+        <a href="#Pcontrol" class="links_modulo">
+          <i class='bx bx-grid-alt'></i>
+          <span class="links_name">Panel de Control</span>
+        </a>
+         <span class="tooltip">Panel de Control</span>
+      </li>
+      <li>
+        <span id="panel1" style="display:none;">Inicio</span> 
+      </li>
+      <script>
+       window.open("#Pcontrol", "_self");
+      </script>
+      <li>
+        <span  class="group">Personas</span> 
+      </li>
+      <li>
+       <a href="#profile" class="links_modulo">
+         <i class='bx bx-user' ></i>
+         <span class="links_name">Perfil</span>
+       </a>
+       <span class="tooltip">Perfil</span>
+     </li>
+     <li>
+      <span id="panel2" style="display:none;" >Perfil</span> 
+    </li>
+     <script>
+      window.open("#profile", "_self");
+     </script>
+
+     <li>
+      <a href="#products" class="links_modulo">
+        <i class='bx bx-cart-alt' ></i>
+        <span class="links_name">Productos</span>
+      </a>
+      <span class="tooltip">Productos</span>
+    </li>
+    <li>
+      <span id="panel3" style="display:none;"  >Productos</span> 
+    </li>
+    <script>
+      window.open("#products", "_self");
+     </script>
+
+    <li>
+      <a href="#orders" class="links_modulo">
+        <i class='bx bx-edit' ></i>
+        <span class="links_name">Pedidos</span>
+      </a>
+      <span class="tooltip">Pedidos</span>
+    </li>
+    <li>
+      <span id="panel4" style="display:none;">Pedidos</span> 
+    </li>
+    <script>
+      window.open("#orders", "_self");
+     </script>
+
+<li>
+  <a  href="#hours" class="links_modulo">
+    <i class='bx bx-history'></i>
+    <span class="links_name">Horario</span>
+  </a>
+</li>
+<li>
+  <span id="panel5" style="display:none;">Horario</span> 
+</li>
+<script>
+  window.open("#hours", "_self");
+ </script>
+
+
+     <li>
+       <a href="#" class="links_modulo">
+         <i class='bx bx-pie-chart-alt-2' ></i>
+         <span class="links_name">Analíticas</span>
+       </a>
+       <span class="tooltip">Analíticas</span>
+     </li>
+     <li>
+      <span id="panel6" style="display:none;">Analiticas</span> 
+    </li>
+     <script>
+      window.open("#", "_self");
+     </script>
+ 
+ <script>
+     
+  const my = window.matchMedia( "(max-width: 900px)");
+    
+    if (my.matches) {
+        document.getElementById("panel1").style ="color:#fff;display:block;text-align:center;font-size:11px"
+        document.getElementById("panel1").style ="color:#fff;display:block;text-align:center;font-size:11px"
+        document.getElementById("panel2").style ="color:#fff;display:block;text-align:center;font-size:11px"
+        document.getElementById("panel3").style ="color:#fff;display:block;text-align:center;font-size:11px"
+        document.getElementById("panel4").style ="color:#fff;display:block;text-align:center;font-size:11px"
+        document.getElementById("panel5").style ="color:#fff;display:block;text-align:center;font-size:11px"
+        document.getElementById("panel6").style ="color:#fff;display:block;text-align:center;font-size:11px"
+       }
+
+</script>
+
+     <li class="profile">
+         <div class="profile-details">
+           <!--<img src="profile.jpg" alt="profileImg">-->
+           <div class="name_job">
+             <div class="name" id="nameStore"></div>
+             <script>
+
+               var retrievedObject = localStorage.getItem('myData');
+               var js = JSON.parse(retrievedObject)
+               console.log(js["name_store"])
+               document.getElementById("nameStore").innerHTML = js["name_store"]
+               
+             </script>
+             <div class="job">Socio Aukde</div>
+           </div>
+         </div>
+         <i class='bx bx-log-out' id="log_out" onclick="logout()" ></i>
+     </li>
+    </ul>
+  </div>
+
+  <section class="home-section">
+      <div class="body-conten">
+      </div>
+  </section>
+
+  <script>
+
+    var contenModulo=document.querySelector(".body-conten");
+    let linkModulo = document.querySelector(".nav-list").querySelectorAll("a");
+
+
+    listaModulos(window.location.hash,contenModulo);
+
+    let sidebar = document.querySelector(".sidebar");
+    let closeBtn = document.querySelector("#btn");
+
+    let userBtn=document.querySelector(".button-user");
+    let userMenu=document.querySelector(".user-menu");
+
+    let languageBtn=document.querySelector(".button-language");
+    let languageMenu=document.querySelector(".language-menu");
+
+    let sucursalBtn=document.querySelector(".user-menu-select");
+    let userMenuSucursal=document.querySelector(".user-menu-item-conten");
+
+    linkModulo.forEach((elemento) => {
+            elemento.addEventListener("click",function(){
+            listaModulos(elemento.getAttribute("href")+"",contenModulo)
+          })
+        });
+
+
+    closeBtn.addEventListener("click", ()=>{
+      sidebar.classList.toggle("open");
+      sidebar.querySelector(".nav-list").classList.toggle("nav-list-scrollbar");
+      menuBtnChange();//calling the function(optional)
+    });
+
+
+
+    // following are the code to change sidebar button(optional)
+    function menuBtnChange() {
+     if(sidebar.classList.contains("open")){
+       closeBtn.classList.replace("bx-menu", "bx-menu-alt-right");//replacing the iocns class
+     }else {
+       closeBtn.classList.replace("bx-menu-alt-right","bx-menu");//replacing the iocns class
+     }
+    }
+
+    function sucursal(){
+      if (userMenuSucursal.classList.contains("user-menu-item-conten-ocultar")) {
+        sucursalBtn.querySelector(".user-menu-select span").classList.replace("bx-chevron-down","bx-chevron-up");
+      }else{
+        sucursalBtn.querySelector(".user-menu-select span").classList.replace("bx-chevron-up","bx-chevron-down");
+      }
+    }
+  </script>
+
+
+</body>
+</html>
