@@ -15,6 +15,11 @@ let firestore = firebase.firestore();
 var retrievedObject = localStorage.getItem('myData');
 var js = JSON.parse(retrievedObject)
 
+let userid = ""
+var fOpen = document.getElementById("floatOpen");
+var fClose = document.getElementById("floatClose");
+var availability = js["availability"]
+
 document.getElementById("email").innerHTML = js["email"]
 document.getElementById("name").value = js["firstName"]
 document.getElementById("lastname").value = js["lastName"]
@@ -42,6 +47,21 @@ if(js["gender"] == "Masculino"){
     document.getElementById("spanMasculino").style = "background-color:#FF3687;color:#fff"
 }
 
+
+if(availability == "yes"){
+  fOpen.style = "display:none";
+  fClose.style = "display:block";
+
+}else{
+  fClose.style = "display:none";
+  fOpen.style = "display:block;background:#229954";
+}
+
+firebase.auth().onAuthStateChanged(function(user) {
+  if (user) {
+    userid = firebase.auth().currentUser.uid;
+    }
+});  
 
 
 function updateData(){
@@ -98,3 +118,55 @@ function openNav() {
     document.getElementById("myNav").style.width = "0%";
   }
   
+
+  function closeStore(){
+
+    firestore.collection("products").get().then((querySnapshot) => {
+
+        querySnapshot.forEach((doc) => {
+            var ids = doc.id
+            var dataid = doc.data().provider_id
+            if(dataid == userid){
+              firestore.collection("products").doc(ids).update("availability","not")
+            }
+            //alert(ids)s
+         
+        }); 
+    
+    }); 
+
+    firestore.collection("users").doc(userid).update("availability","not")
+    js["availability"] = "not"
+    var json = JSON.stringify(js);
+    localStorage.setItem('myData',json);
+
+    fClose.style = "display:none"
+    fOpen.style = "visibility:visible;background:#229954"
+
+}
+
+function openStore(){
+
+  firestore.collection("products").get().then((querySnapshot) => {
+
+        querySnapshot.forEach((doc) => {
+            var ids = doc.id
+            var dataid = doc.data().provider_id
+            if(dataid == userid){
+              firestore.collection("products").doc(ids).update("availability","yes")
+            }
+            //alert(ids)s
+         
+        }); 
+    }); 
+
+    firestore.collection("users").doc(userid).update("availability","yes")
+    js["availability"] = "yes"
+    var json = JSON.stringify(js);
+    localStorage.setItem('myData',json);
+
+    fOpen.style = "display:none"
+    fClose.style = "visibility:visible"
+
+}
+

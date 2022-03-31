@@ -20,7 +20,6 @@ toDataURL(result, function(dataUrl) {
 })
 
 
-
 var config = {
   apiKey: "AIzaSyB0Q44TruQYFZ2Kz1BYapW5UB2eiAj2ZRw",
   authDomain: "gestor-de-pedidos-aukdefood.firebaseapp.com",

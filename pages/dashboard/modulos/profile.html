@@ -4,19 +4,30 @@
     <meta charset="UTF-8">
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-auth.js"></script>
     <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-alpha1/dist/css/bootstrap.min.css' rel='stylesheet'>
     <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
     <link href='css/loader.css' rel='stylesheet'> 
     <link href='css/style-profile.css' rel='stylesheet'> 
     <script src="js/alertify.min.js"></script>
 	<link rel="stylesheet" href="css/alertify.css" />
-   
-    
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="css/float.css" />
    
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
   </head>
 
   <body>
+
+    
+    <a onclick="closeStore()" class="float" id="floatClose">
+        <i class="fa fa-sign-out my-float"></i>
+        </a>
+    
+        <a onclick="openStore()" class="float" id="floatOpen">
+          <i class="fa fa-external-link my-float"></i>
+          </a>
+    
 
     <div class="body-title">
         Mi perfil
@@ -62,9 +73,9 @@
                     <br>
                     <div class="d-flex justify-content-between align-items-center experience"><span style="margin-right: 8px;">Género</span>
                         <span class="border px-3 p-1 add-experience2" id="spanMasculino">
-                        <i class="fa fa-plus"></i>&nbsp;<font size="-1">Masculino</font>
+                        <font size="-1">Masculino</font>
                     </span><span class="border px-3 p-1 add-experience" id="spanFemenino">
-                        <i class="fa fa-plus"></i>&nbsp;<font size="-1">Femenino</font>
+                        <font size="-1">Femenino</font>
                     </span></div>
                     
                     <br>

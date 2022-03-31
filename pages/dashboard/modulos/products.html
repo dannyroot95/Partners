@@ -12,6 +12,8 @@
 	<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
 	<link rel="stylesheet" href="css/alertify.css" />
 	<script src="https://www.gstatic.com/firebasejs/8.10.0/firebase.js"></script>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css"/>
+	<link rel="stylesheet" href="css/float.css" />
 	
 
 <!--===============================================================================================-->
@@ -31,6 +33,16 @@
 </head>
 
 <body>
+
+	<a onclick="closeStore()" class="float" id="floatClose">
+		<i class="fa fa-sign-out my-float"></i>
+		</a>
+	
+		<a onclick="openStore()" class="float" id="floatOpen">
+		  <i class="fa fa-external-link my-float"></i>
+		  </a>
+	
+	
 
 	<div id="myNavNoHours" class="overlay" style="background: #E0E0E0;">
 

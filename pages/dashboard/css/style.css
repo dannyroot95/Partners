@@ -381,3 +381,20 @@ background: #ececec;
     scrollbar-color: rgba(0, 0, 0, .5) rgba(0, 0, 0, 1);
     scrollbar-width: thin;
 }
+
+.float{
+	position:fixed;
+	width:60px;
+	height:60px;
+	bottom:40px;
+	right:40px;
+	background-color:#000;
+	color:#FFF;
+	border-radius:50px;
+	text-align:center;
+	box-shadow: 2px 2px 3px #FFF;
+}
+
+.my-float{
+	margin-top:22px;
+}
