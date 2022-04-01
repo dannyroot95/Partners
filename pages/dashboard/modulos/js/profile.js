@@ -121,6 +121,11 @@ function openNav() {
 
   function closeStore(){
 
+    alertify.confirm("Advertencia!", "¿Desea cerrar su negocio?",
+    function(){
+      alertify.confirm().close(); 
+      alertify.error('Tienda cerrada!');
+
     firestore.collection("products").get().then((querySnapshot) => {
 
         querySnapshot.forEach((doc) => {
@@ -143,9 +148,19 @@ function openNav() {
     fClose.style = "display:none"
     fOpen.style = "visibility:visible;background:#229954"
 
+  },
+  function(){
+    alertify.success('Cancelado');
+  });
+
 }
 
 function openStore(){
+
+  alertify.confirm("Advertencia!", "¿Desea abrir su negocio?",
+  function(){
+  alertify.confirm().close(); 
+  alertify.success('Tienda abierta!');
 
   firestore.collection("products").get().then((querySnapshot) => {
 
@@ -167,6 +182,11 @@ function openStore(){
 
     fOpen.style = "display:none"
     fClose.style = "visibility:visible"
+
+  },
+  function(){
+    alertify.error('Cancelado');
+  });  
 
 }
 

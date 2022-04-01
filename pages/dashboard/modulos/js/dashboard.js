@@ -39,6 +39,7 @@ var countProducts = 0
 var countOrders = 0 
 var totalSale = 0.00
 var myArraySales = []
+
 firestore.collection("products").get().then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
             var providerId = doc.data().provider_id

@@ -536,6 +536,11 @@ function procesingOrder(){
       
   function closeStore(){
 
+    alertify.confirm("Advertencia!", "¿Desea cerrar su negocio?",
+    function(){
+      alertify.confirm().close(); 
+      alertify.error('Tienda cerrada!');
+
     firestore.collection("products").get().then((querySnapshot) => {
 
         querySnapshot.forEach((doc) => {
@@ -558,9 +563,19 @@ function procesingOrder(){
     fClose.style = "display:none"
     fOpen.style = "visibility:visible;background:#229954;color:#FFF;"
 
+  },
+  function(){
+    alertify.success('Cancelado');
+  });
+
 }
 
 function openStore(){
+
+  alertify.confirm("Advertencia!", "¿Desea abrir su negocio?",
+    function(){
+    alertify.confirm().close(); 
+    alertify.success('Tienda abierta!');
 
   firestore.collection("products").get().then((querySnapshot) => {
 
@@ -582,5 +597,11 @@ function openStore(){
 
     fOpen.style = "display:none"
     fClose.style = "visibility:visible;color:#FFF;"
+
+  },
+  function(){
+    alertify.error('Cancelado');
+  });
+  
 
 }
